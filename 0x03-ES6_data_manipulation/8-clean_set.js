@@ -1,21 +1,19 @@
 export default function cleanSet(set, startString) {
-  // If startString is an empty string, return an empty string
-  if (startString === '') {
+  const cleanedValues = [];
+
+  if (
+    typeof set !== 'object'
+    || typeof startString !== 'string'
+    || startString.length === 0
+  ) {
     return '';
   }
 
-  // Initialize an empty string to store the result
-  let result = '';
-
-  // Iterate over each element in the set
-  set.forEach((element) => {
-    // Check if the element starts with the startString
-    if (element.startsWith(startString)) {
-      // If it does, append the substring after the startString to the result string
-      result += `${element.substring(startString.length)}-`;
+  for (const value of set) {
+    if (value && value.startsWith(startString)) {
+      cleanedValues.push(value.slice(startString.length));
     }
-  });
+  }
 
-  // Remove the trailing '-' and return the result
-  return result.slice(0, -1);
+  return cleanedValues.join('-');
 }
